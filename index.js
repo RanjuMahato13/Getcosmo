@@ -16,6 +16,7 @@ const enqRouter = require("./routes/enqRoute");
 const couponRouter = require("./routes/couponRoute");
 const uploadRouter = require("./routes/uploadRoute");
 const suggestionRouter = require("./routes/suggestionRoute");
+const faqRouter = require("./routes/faqRoute");
 const cookieParser = require("cookie-parser");
 const morgan = require("morgan");
 const cors = require("cors");
@@ -37,6 +38,7 @@ app.use("/api/shade", shadeRouter);
 app.use("/api/enquiry", enqRouter);
 app.use("/api/upload", uploadRouter);
 app.use("/api/suggestion", suggestionRouter);
+app.use("/api/faq", faqRouter);
 
 app.use(notFound);
 app.use(errorHandler);
