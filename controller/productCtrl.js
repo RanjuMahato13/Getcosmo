@@ -161,7 +161,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(user);
+      res.json({ user, message: "Removed from wishlist" });
     } else {
       let user = await User.findByIdAndUpdate(
         _id,
@@ -172,7 +172,7 @@ const addToWishlist = asyncHandler(async (req, res) => {
           new: true,
         }
       );
-      res.json(user);
+      res.json({ user, message: "Added to wishlist" });
     }
   } catch (error) {
     throw new Error(error);

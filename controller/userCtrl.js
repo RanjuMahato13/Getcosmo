@@ -458,6 +458,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
 const getMyOrders = asyncHandler(async (req, res) => {
   const { _id } = req.user;
+  console.log(_id);
   try {
     const orders = await Order.find({ user: _id })
       .populate("user")
@@ -557,30 +558,32 @@ const getMyOrders = asyncHandler(async (req, res) => {
 //   }
 // });
 
-// const getAllOrders = asyncHandler(async (req, res) => {
-//   try {
-//     const alluserorders = await Order.find()
-//       .populate("products.product")
-//       .populate("orderby")
-//       .exec();
-//     res.json(alluserorders);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// });
-// const getOrderByUserId = asyncHandler(async (req, res) => {
-//   const { id } = req.params;
-//   validateMongoDbId(id);
-//   try {
-//     const userorders = await Order.findOne({ orderby: id })
-//       .populate("products.product")
-//       .populate("orderby")
-//       .exec();
-//     res.json(userorders);
-//   } catch (error) {
-//     throw new Error(error);
-//   }
-// });
+const getAllOrders = asyncHandler(async (req, res) => {
+  try {
+    const alluserorders = await Order.find()
+      .populate("orderItems.product")
+      .populate("orderItems.shade")
+      .populate("user")
+      .exec();
+    res.json(alluserorders);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
+const getOrderByUserId = asyncHandler(async (req, res) => {
+  const { id } = req.params;
+  validateMongoDbId(id);
+  try {
+    const userorders = await Order.findOne({ user: id })
+      .populate("orderItems.product")
+      .populate("orderItems.shade")
+      .populate("user")
+      .exec();
+    res.json(userorders);
+  } catch (error) {
+    throw new Error(error);
+  }
+});
 
 // const updateOrderStatus = asyncHandler(async (req, res) => {
 //   const {status} = req.body;
@@ -627,7 +630,8 @@ module.exports = {
   // createOrder,
   // getOrders,
   // updateOrderStatus,
-  // getAllOrders,
+  getAllOrders,
+  getOrderByUserId,
   // getOrderByUserId,
   removeProductFromCart,
   emptyCart,

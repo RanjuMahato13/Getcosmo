@@ -25,6 +25,7 @@ const {
   getOrders,
   updateOrderStatus,
   getAllOrders,
+  getOrderByUserId,
   removeProductFromCart,
   updateProductQuantityFromCart,
   getMyOrders,
@@ -52,7 +53,8 @@ router.get("/refresh", handleRefreshToken);
 router.get("/logout", logout);
 router.get("/wishlist", authMiddleware, getWishlist);
 router.get("/cart", authMiddleware, getUserCart);
-
+router.get("/getallorders", authMiddleware, isAdmin, getAllOrders);
+router.get("/getorderbyuser/:id", authMiddleware, isAdmin, getOrderByUserId);
 router.get("/:id", authMiddleware, isAdmin, getaUser);
 //router.delete("/empty-cart", authMiddleware, emptyCart);
 router.delete(
